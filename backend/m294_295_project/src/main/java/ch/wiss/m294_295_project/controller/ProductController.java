@@ -18,4 +18,14 @@ public class ProductController {
         return productRepository.findAll();
     }
 
+    @PostMapping("/products")
+    public ProductModel createProduct(@RequestBody ProductModel product) {
+        return productRepository.save(product);
+    }
+
+    @DeleteMapping("/products/{id}")
+    public void deleteProduct(@PathVariable Integer id) {
+        productRepository.deleteById(id);
+    }
+
 }

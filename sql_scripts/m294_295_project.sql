@@ -12,7 +12,7 @@ CREATE TABLE products (
     rating DECIMAL(2,1),
     CHECK (rating >= 0.0 AND rating <= 5.0)
 );
- 
+
 INSERT INTO products (name, description, price, rating)
 VALUES (
   'Boxhandschuhe Leone',
