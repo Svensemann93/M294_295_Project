@@ -1,0 +1,9 @@
+.add-section {
+  margin-bottom: 2rem;
+}
+
+.add-form {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 400px;
+}

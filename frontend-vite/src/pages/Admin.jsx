@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-import ProductList from './components/ProductList';
-import ProductForm from './components/ProductForm';
+import '../styles/pages/Admin.css';
+import ProductList from '../components/ProductList';
+import ProductForm from '../components/ProductForm';
 
-function App() {
+export default function Admin() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -54,5 +54,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

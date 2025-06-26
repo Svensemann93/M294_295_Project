@@ -1,0 +1,31 @@
+/* hier wird die Navigation gestaltet */
+
+.navigation
+{
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem 1rem;
+}
+ 
+.navigation .nav-list
+{
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
+}
+ 
+.navigation .nav-list li a
+{
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+ 
+.navigation .nav-list li a:hover
+{
+    text-decoration: underline;
+}
+ 

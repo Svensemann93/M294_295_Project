@@ -1,4 +1,5 @@
 import ProductCard from './ProductCard';
+import '../styles/components/ProductCard.css';
 export default function ProductList({ products, onDelete }) {
   if (!products.length) {
     return <p className="no-products">Keine Produkte gefunden.</p>;

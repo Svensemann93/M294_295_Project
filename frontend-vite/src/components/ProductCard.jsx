@@ -1,3 +1,4 @@
+import '../styles/components/ProductCard.css';
 export default function ProductCard({ product, onDelete }) {
 return (
     <div className="product-card">
