@@ -28,4 +28,13 @@ public class ProductController {
         productRepository.deleteById(id);
     }
 
+    @PutMapping("/products/{id}")
+    public ProductModel updateProduct(@PathVariable Integer id, @RequestBody ProductModel productDetails) {
+        ProductModel product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Produkt nicht gefunden: " + id));
+        product.setName(productDetails.getName());
+        product.setDescription(productDetails.getDescription());
+        product.setPrice(productDetails.getPrice());
+        product.setRating(productDetails.getRating());
+        return productRepository.save(product);
+    }
 }

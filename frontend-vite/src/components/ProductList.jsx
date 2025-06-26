@@ -1,6 +1,7 @@
 import ProductCard from './ProductCard';
-import '../styles/components/ProductCard.css';
-export default function ProductList({ products, onDelete }) {
+import '../styles/components/ProductList.css';
+
+export default function ProductList({ products, onDelete, onEdit }) {
   if (!products.length) {
     return <p className="no-products">Keine Produkte gefunden.</p>;
   }
@@ -11,6 +12,7 @@ export default function ProductList({ products, onDelete }) {
           key={product.id}
           product={product}
           onDelete={onDelete}
+          onEdit={onEdit}
         />
       ))}
     </div>

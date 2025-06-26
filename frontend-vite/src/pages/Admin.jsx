@@ -1,3 +1,4 @@
+// Diese Seite ist nur für den Admin-Bereich, um Produkte zu verwalten
 import { useEffect, useState } from 'react';
 import '../styles/pages/Admin.css';
 import ProductList from '../components/ProductList';
@@ -5,18 +6,15 @@ import ProductForm from '../components/ProductForm';
 
 export default function Admin() {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading]   = useState(true);
+  const [editingProduct, setEditingProduct] = useState(null);
 
   const loadProducts = () => {
     setLoading(true);
     fetch('http://localhost:8080/api/products')
-      .then((res) => res.json())
-      .then((data) => {
+      .then(r => r.json())
+      .then(data => {
         setProducts(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
         setLoading(false);
       });
   };
@@ -25,32 +23,39 @@ export default function Admin() {
     loadProducts();
   }, []);
 
-  const handleAdd = (newProduct) => {
-    fetch('http://localhost:8080/api/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newProduct),
-    })
-      .then((res) => res.json())
-      .then(() => loadProducts())
-      .catch((err) => console.error(err));
+const handleDelete = id => {
+    fetch(`http://localhost:8080/api/products/${id}`, { method: 'DELETE' })
+      .then(() => {
+        setEditingProduct(null);
+        loadProducts();
+      });
   };
 
-  const handleDelete = (id) => {
-    fetch(`http://localhost:8080/api/products/${id}`, {
-      method: 'DELETE',
-    })
-      .then(() => loadProducts())
-      .catch((err) => console.error('Fehler beim Löschen:', err));
+  const handleEditClick = product => {
+    setEditingProduct(product);
   };
 
-  if (loading) return <p className="loading">Lädt …</p>;
+  const handleFormSubmit = savedProduct => {
+    setEditingProduct(null);
+    loadProducts();
+  };
+
+  if (loading) return <p>Lädt …</p>;
 
   return (
-    <div className="container">
-      <h1>Produkte</h1>
-      <ProductForm onAdd={handleAdd} />
-      <ProductList products={products} onDelete={handleDelete} />
+    <div className="admin">
+      <h1>Produkte verwalten</h1>
+
+      <ProductForm
+        initialProduct={editingProduct}
+        onSubmit={handleFormSubmit}
+      />
+
+      <ProductList
+        products={products}
+        onDelete={handleDelete}
+        onEdit={handleEditClick}
+      />
     </div>
   );
 }
