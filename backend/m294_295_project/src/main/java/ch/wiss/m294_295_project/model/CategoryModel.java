@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity // Diese Annotation kennzeichnet die Klasse als Entität, die in der Datenbank gespeichert wird.
 @Table(name = "categories")
 public class CategoryModel {
@@ -33,8 +31,7 @@ public class CategoryModel {
     automatisch aus der Datenbank entfernt werden.
     Dies ist nützlich, wenn Produkte gelöscht oder ihre Kategorie geändert wird.
 
-    Wir nutzen eine ArrayList, um die Produkte zu speichern, die zu dieser Kategorie gehören.
-    TODO: Wir müssen sicherstellen, dass ein Produkt immer mit einer Kategorie verknüpft ist, bevor es gespeichert wird.*/
+    Wir nutzen eine ArrayList, um die Produkte zu speichern, die zu dieser Kategorie gehören.*/
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductModel> products = new ArrayList<>();
