@@ -1,11 +1,17 @@
 package ch.wiss.m294_295_project.model;
 
 import java.math.BigDecimal;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -42,15 +48,25 @@ public class ProductModel {
     @Column(name = "rating", precision = 2, scale = 1)
     private BigDecimal rating;
 
+    @ManyToOne(optional = false )
+    /* Eine Kategorie kann mehrere Produkte haben, aber ein Produkt gehört zu genau einer Kategorie (Many-to-One-Beziehung).
+    optional = false bedeutet, dass jedes Produkt eine Kategorie haben muss.*/
+    @JoinColumn(name = "category_id", nullable = false)
+    /*@JoinColumn bedeutet, dass die Beziehung in der Datenbank durch eine Fremdschlüsselspalte "category_id" dargestellt wird.
+    Diese Spalte verweist auf die ID der Kategorie, zu der das Produkt gehört.*/
+    @JsonIgnoreProperties ("products") //TODO: Erklärung eingeben
+    private CategoryModel category;
+
         public ProductModel() {
         // Standardkonstruktor für JPA
     }
 
-    public ProductModel(String name, String description, BigDecimal price, BigDecimal  rating) {
+    public ProductModel(String name, String description, BigDecimal price, BigDecimal  rating, CategoryModel category) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.rating = rating;
+        this.category = category;
     }
 
     // Getter & Setter
@@ -68,6 +84,9 @@ public class ProductModel {
 
     public BigDecimal getRating() { return rating; }
     public void setRating(BigDecimal rating) { this.rating = rating; }
+
+    public CategoryModel getCategory() { return category; }
+    public void setCategory(CategoryModel category) { this.category = category; }
 }
 
 // Diese Klasse repräsentiert ein Produkt in der Datenbank.

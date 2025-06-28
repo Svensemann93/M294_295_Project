@@ -20,6 +20,11 @@ public class ProductController {
         return productRepository.findAll();
     }
 
+    @GetMapping("/products/{id}")
+    public ProductModel getProductById(@PathVariable Integer id) {
+        return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Produkt nicht gefunden mit der ID: " + id));
+    }
+
     @PostMapping("/products")
     public ProductModel createProduct(@Valid @RequestBody ProductModel product) {
         return productRepository.save(product);
@@ -37,6 +42,7 @@ public class ProductController {
         product.setDescription(productDetails.getDescription());
         product.setPrice(productDetails.getPrice());
         product.setRating(productDetails.getRating());
+        product.setCategory(productDetails.getCategory());
         return productRepository.save(product);
     }
 }
