@@ -1,6 +1,8 @@
 package ch.wiss.m294_295_project.controller;
 import ch.wiss.m294_295_project.model.ProductModel;
 import ch.wiss.m294_295_project.repository.ProductRepository;
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -19,7 +21,7 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public ProductModel createProduct(@RequestBody ProductModel product) {
+    public ProductModel createProduct(@Valid @RequestBody ProductModel product) {
         return productRepository.save(product);
     }
 
@@ -29,7 +31,7 @@ public class ProductController {
     }
 
     @PutMapping("/products/{id}")
-    public ProductModel updateProduct(@PathVariable Integer id, @RequestBody ProductModel productDetails) {
+    public ProductModel updateProduct(@PathVariable Integer id, @Valid @RequestBody ProductModel productDetails) {
         ProductModel product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Produkt nicht gefunden: " + id));
         product.setName(productDetails.getName());
         product.setDescription(productDetails.getDescription());
