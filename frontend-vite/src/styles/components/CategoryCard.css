@@ -1,0 +1,9 @@
+.category-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+}
+.category-name {
+  font-style: italic;
+  color: #666;
+}

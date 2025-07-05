@@ -4,6 +4,7 @@ import '../styles/pages/Admin.css';
 import ProductList from '../components/ProductList';
 import ProductForm from '../components/ProductForm';
 import CategoryForm from '../components/CategoryForm';
+import CategoryList from '../components/CategoryList';
 
 export default function Admin() {
   const [products, setProducts] = useState([]);
@@ -36,11 +37,31 @@ export default function Admin() {
     loadCategories();
   }, []);
 
-const handleDelete = id => {
+const handleDeleteProduct = id => {
     fetch(`http://localhost:8080/api/products/${id}`, { method: 'DELETE' })
       .then(() => {
         setEditingProduct(null);
         loadProducts();
+      });
+  };
+
+  const handleDeleteCategory = id => {
+    const isInUse = products.some(product => product.category?.id === id);
+    if (isInUse) {
+      alert('Diese Kategorie kann nicht gelöscht werden, da sie von Produkten verwendet wird.');
+      return;
+    }
+    fetch(`http://localhost:8080/api/categories/${id}`, { method: 'DELETE' })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(err => { throw new Error(err.error || 'Fehler beim Löschen der Kategorie'); });
+        }
+        setEditingCategory(null);
+        loadCategories();
+      })
+      .catch(err => {
+        console.error('Fehler beim Löschen der Kategorie:', err);
+        alert('Fehler beim Löschen der Kategorie: ' + err.message);
       });
   };
 
@@ -67,15 +88,22 @@ const handleDelete = id => {
 
       <CategoryForm
         initialCategory={editingCategory}
-        onSubmit={category => {
+        onSubmit={() => {
           setEditingCategory(null);
           loadCategories();
+          loadProducts();
         }}
         />
+
+      <CategoryList
+        categories={categories}
+        onDelete={handleDeleteCategory}
+        onEdit={category => setEditingCategory(category)}
+      />
     </div>
       <ProductList
         products={products}
-        onDelete={handleDelete}
+        onDelete={handleDeleteProduct}
         onEdit={handleEditClick}
       />
     </div>

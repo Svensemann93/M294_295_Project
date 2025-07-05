@@ -118,7 +118,10 @@ export default function ProductForm({ initialProduct = null, onSubmit }) {
       <textarea
         placeholder="Beschreibung"
         value={description}
+        minLength="1"
+        maxLength="2000"
         onChange={e => setDescription(e.target.value)}
+        required
       />
       <input
         type="number"
