@@ -1,6 +1,8 @@
 package ch.wiss.m294_295_project.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class CategoryModel {
     - nullable = false bedeutet, dass der Name nicht leer sein darf.
     - length = 50 begrenzt die Länge des Namens auf 50 Zeichen.
     - unique = true stellt sicher, dass der Name in der Datenbank eindeutig ist.*/
+    @Size(min = 1, max = 50, message = "Kategoriename muss zwischen 1 und 50 Zeichen lang sein") // Validierung der Länge des Namens
     @Column(nullable = false, length = 50, unique = true)
     private String name;
 

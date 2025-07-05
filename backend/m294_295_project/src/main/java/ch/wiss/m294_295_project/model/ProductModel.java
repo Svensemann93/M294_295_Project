@@ -28,7 +28,8 @@ public class ProductModel {
 
     @NotNull(message = "Name darf nicht leer sein")
     @Size(min = 1, max = 100, message = "Name muss zwischen 1 und 100 Zeichen lang sein")
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100) /* Diese Spalte darf nicht null sein und hat eine maximale Länge von 100 Zeichen.
+    @Column definiert die Spaltenattribute in der Datenbank.*/
     private String name;
 
     @Size(min = 1, max = 2000, message = "Beschreibung muss zwischen 1 und 2000 Zeichen lang sein")
@@ -53,7 +54,8 @@ public class ProductModel {
     @JoinColumn(name = "category_id", nullable = false)
     /*@JoinColumn bedeutet, dass die Beziehung in der Datenbank durch eine Fremdschlüsselspalte "category_id" dargestellt wird.
     Diese Spalte verweist auf die ID der Kategorie, zu der das Produkt gehört.*/
-    @JsonIgnoreProperties ("products") //TODO: Erklärung eingeben
+    @JsonIgnoreProperties ("products") /* Verhindert den Endlosloop, weil dadurch zuerst die Produkte geladen werden,
+    bevor die Kategorie geladen wird und danach nicht nochmals die Produkte der Kategorie.*/
     private CategoryModel category;
 
         public ProductModel() {

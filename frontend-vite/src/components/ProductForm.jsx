@@ -1,12 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import '../styles/components/ProductForm.css';
 
 export default function ProductForm({ initialProduct = null, onSubmit }) {
   const isEdit = Boolean(initialProduct);
+
+
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [rating, setRating] = useState('');
+  const[categoryId, setCategoryId] = useState('');
+  const [categories, setCategories] = useState([]);
+
+// Laden der Kategorien beim ersten Rendern
+  useEffect(() => {
+    fetch('http://localhost:8080/api/categories')
+      .then(res => res.json())
+      .then(list => setCategories(list))
+      .catch(err => console.error('Error loading categories', err));
+  }, []);
 
   useEffect(() => {
     if (isEdit) {
@@ -14,14 +26,16 @@ export default function ProductForm({ initialProduct = null, onSubmit }) {
       setDescription(initialProduct.description);
       setPrice(initialProduct.price);
       setRating(initialProduct.rating);
+      setCategoryId(initialProduct.category?.id || '');
     } else {
 
       setName('');
       setDescription('');
       setPrice('');
       setRating('');
+      setCategoryId('');
     }
-  }, [initialProduct]);
+  }, [initialProduct, isEdit]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -32,6 +46,12 @@ export default function ProductForm({ initialProduct = null, onSubmit }) {
       alert('Der Preis muss eine positive Zahl sein.');
       return;
     }
+
+    if (!categoryId) {
+      alert('Bitte wählen Sie eine Kategorie aus.');
+      return;
+    }
+
     // Validierung: Rating zwischen 0 und 5
     const parsedRating = parseFloat(rating);
     if (parsedRating < 0 || parsedRating > 5) {
@@ -43,7 +63,8 @@ export default function ProductForm({ initialProduct = null, onSubmit }) {
       name,
       description,
       price: parsedPrice,
-      rating: parsedRating
+      rating: parsedRating,
+      category: {id: categoryId}
     };
 
     const url    = isEdit
@@ -65,13 +86,29 @@ export default function ProductForm({ initialProduct = null, onSubmit }) {
     onSubmit(saved);
 
     if (!isEdit) {
-      setName(''); setDescription(''); setPrice(''); setRating('');
+      setName(''); setDescription(''); setPrice(''); setRating(''); setCategoryId('');
     }
   };
 
   return (
     <form className='product-form' onSubmit={handleSubmit}>
       <h2>{isEdit ? 'Produkt bearbeiten' : 'Neues Produkt anlegen'}</h2>
+
+      <label className="category-select">
+        <select
+        value={categoryId}
+        onChange={e => setCategoryId(parseInt(e.target.value, 10))}
+        required
+        >
+          <option value="">Kategorie wählen</option>
+          {categories.map(category => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
+      </label>
+
       <input
         placeholder="Name"
         value={name}

@@ -1,2 +1,17 @@
-/* hier ist das Styling für die Seite Admin
- */
+.admin
+{
+    padding: 1rem;
+}
+
+.admin h1
+{
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.admin-forms
+{
+    display: flex;
+    align-items: flex-start;
+    gap: 5rem;
+}

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import ch.wiss.m294_295_project.model.CategoryModel;
 import ch.wiss.m294_295_project.repository.CategoryRepository;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -29,12 +30,12 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryModel create(@RequestBody CategoryModel cat) {
+    public CategoryModel create(@Valid @RequestBody CategoryModel cat) {
         return categoryRepository.save(cat);
     }
 
     @PutMapping("/{id}")
-    public CategoryModel update(@PathVariable Integer id, @RequestBody CategoryModel catDetails) {
+    public CategoryModel update(@PathVariable Integer id,@Valid @RequestBody CategoryModel catDetails) {
         CategoryModel cat = categoryRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Kategorie nicht gefunden: " + id));
         cat.setName(catDetails.getName());

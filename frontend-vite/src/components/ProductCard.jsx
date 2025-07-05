@@ -2,6 +2,7 @@ import '../styles/components/ProductCard.css';
 export default function ProductCard({ product, onDelete, onEdit }) {
   return (
     <div className="product-card">
+      <p className="category-name">{product.category.name}</p>
       <h2>{product.name}</h2>
       <p>{product.description}</p>
       <p className="product-price">CHF {product.price.toFixed(2)}</p>

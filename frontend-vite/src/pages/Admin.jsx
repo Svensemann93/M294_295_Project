@@ -3,11 +3,14 @@ import { useEffect, useState } from 'react';
 import '../styles/pages/Admin.css';
 import ProductList from '../components/ProductList';
 import ProductForm from '../components/ProductForm';
+import CategoryForm from '../components/CategoryForm';
 
 export default function Admin() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading]   = useState(true);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [editingCategory, setEditingCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   const loadProducts = () => {
     setLoading(true);
@@ -19,8 +22,18 @@ export default function Admin() {
       });
   };
 
+  const loadCategories = () => {
+    setLoading(true);
+    fetch('http://localhost:8080/api/categories')
+      .then(r => r.json())
+      .then(data => {
+        setCategories(data);
+        setLoading(false);
+      });
+    };
   useEffect(() => {
     loadProducts();
+    loadCategories();
   }, []);
 
 const handleDelete = id => {
@@ -38,19 +51,28 @@ const handleDelete = id => {
   const handleFormSubmit = savedProduct => {
     setEditingProduct(null);
     loadProducts();
+    loadCategories();
   };
 
   if (loading) return <p>Lädt …</p>;
 
   return (
     <div className="admin">
-      <h1>Produkte verwalten</h1>
-
+      <h1>Shopverwaltung</h1>
+      <div className="admin-forms">
       <ProductForm
         initialProduct={editingProduct}
         onSubmit={handleFormSubmit}
       />
 
+      <CategoryForm
+        initialCategory={editingCategory}
+        onSubmit={category => {
+          setEditingCategory(null);
+          loadCategories();
+        }}
+        />
+    </div>
       <ProductList
         products={products}
         onDelete={handleDelete}
