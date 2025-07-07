@@ -45,3 +45,25 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+/* cursor: pointer macht den Button klickbar */
+.edit-button
+{
+    background-color: #dedede;
+    color: black;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* cursor: pointer macht den Button klickbar */
+.delete-button
+{
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+}

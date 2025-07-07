@@ -1,0 +1,12 @@
+/* hier wird die Kategorieliste gestaltet */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.categories-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+

@@ -3,18 +3,18 @@
 
 import { Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
-import Shoeppe from './pages/Shoeppe';
+import Shop from './pages/Shop';
 import Admin      from './pages/Admin';
 import Contact    from './pages/Contact';
- 
+
 export default function App() {
   return (
     <>
       <Navigation />
- 
+
       <main className="main-content">
         <Routes>
-          <Route path="/"        element={<Shoeppe />} />
+          <Route path="/"        element={<Shop />} />
           <Route path="/admin"   element={<Admin />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>

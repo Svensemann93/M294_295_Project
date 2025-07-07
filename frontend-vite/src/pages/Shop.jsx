@@ -1,8 +1,8 @@
-import '../styles/pages/Shoeppe.css';
+import '../styles/pages/Shop.css';
 import { useState, useEffect } from 'react';
 import ProductList from '../components/ProductList';
 
-export default function Shoeppe() {
+export default function Shop() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading]   = useState(true);
   useEffect(() => {
@@ -21,8 +21,8 @@ export default function Shoeppe() {
   if (loading) return <p>Lädt …</p>;
 
   return (
-    <div className="shoeppe">
-      <h1>Willkommen bei Shöppe.ch</h1>
+    <div className="shop">
+      <h1>Willkommen bei meinem Shop</h1>
       <ProductList products={products} />
     </div>
   );

@@ -7,7 +7,7 @@ export default function Navigation() {
     <nav className="navigation">
       <ul className="nav-list">
         <li>
-          <Link to="/">Shoeppe</Link>
+          <Link to="/">Shop</Link>
         </li>
         <li>
           <Link to="/admin">Produkt verwalten</Link>

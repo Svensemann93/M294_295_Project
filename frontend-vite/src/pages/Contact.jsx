@@ -6,7 +6,7 @@ export default function Contact() {
     <div className="contact">
       <h1>Kontakt</h1>
       <p>
-        Schreib uns eine E-Mail an hoeb@shoeppe.com oder ruf uns an unter 079 (het sie gseit).
+        Schreib uns eine E-Mail an hoeb@shop.com oder ruf uns an unter 079 (het sie gseit).
       </p>
       <img src={Shiva} alt="Mike Shiva grüsst" />
     </div>

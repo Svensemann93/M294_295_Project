@@ -86,6 +86,7 @@ const handleDeleteProduct = id => {
         onSubmit={handleFormSubmit}
       />
 
+      <div className="category-form-container">
       <CategoryForm
         initialCategory={editingCategory}
         onSubmit={() => {
@@ -100,6 +101,7 @@ const handleDeleteProduct = id => {
         onDelete={handleDeleteCategory}
         onEdit={category => setEditingCategory(category)}
       />
+      </div>
     </div>
       <ProductList
         products={products}
