@@ -7,11 +7,11 @@ import CategoryForm from '../components/CategoryForm';
 import CategoryList from '../components/CategoryList';
 
 export default function Admin() {
-  const [products, setProducts] = useState([]);
   const [loading, setLoading]   = useState(true);
+  const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
-  const [editingCategory, setEditingCategory] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [editingCategory, setEditingCategory] = useState(null);
 
   const loadProducts = () => {
     setLoading(true);
@@ -31,7 +31,8 @@ export default function Admin() {
         setCategories(data);
         setLoading(false);
       });
-    };
+  };
+
   useEffect(() => {
     loadProducts();
     loadCategories();
@@ -45,32 +46,34 @@ const handleDeleteProduct = id => {
       });
   };
 
-  const handleDeleteCategory = id => {
-    const isInUse = products.some(product => product.category?.id === id);
-    if (isInUse) {
-      alert('Diese Kategorie kann nicht gelöscht werden, da sie von Produkten verwendet wird.');
-      return;
-    }
-    fetch(`http://localhost:8080/api/categories/${id}`, { method: 'DELETE' })
-      .then(res => {
-        if (!res.ok) {
-          return res.json().then(err => { throw new Error(err.error || 'Fehler beim Löschen der Kategorie'); });
-        }
-        setEditingCategory(null);
-        loadCategories();
-      })
-      .catch(err => {
-        console.error('Fehler beim Löschen der Kategorie:', err);
-        alert('Fehler beim Löschen der Kategorie: ' + err.message);
-      });
-  };
+const handleDeleteCategory = id => {
+  const alreadyExisting = products.some(p => p.category?.id === id);
+  if (alreadyExisting) {
+    alert('ACHTUNG, diese Kategorie enthält Produkte! Bitte entferne diese Produkte zuerst, bevor du die Kategorie löschst.',);
+    return;
+  }
+
+  fetch(`http://localhost:8080/api/categories/${id}`, { method: 'DELETE' })
+    .then(res => {
+      if (!res.ok) {
+        return res.json().then(err => { throw new Error(err.error || 'Delete failed'); });
+      }
+      setEditingCategory(null);
+      loadCategories();
+    })
+    .catch(err => {
+      console.error('Fehler beim Löschen:', err);
+      alert('Fehler beim Löschen der Kategorie: ' + err.message);
+    });
+};
 
   const handleEditClick = product => {
     setEditingProduct(product);
   };
 
-  const handleFormSubmit = savedProduct => {
+  const handleFormSubmit = () => {
     setEditingProduct(null);
+    setEditingCategory(null);
     loadProducts();
     loadCategories();
   };
@@ -79,32 +82,27 @@ const handleDeleteProduct = id => {
 
   return (
     <div className="admin">
-      <h1>Shopverwaltung</h1>
-      <div className="admin-forms">
-      <ProductForm
-        initialProduct={editingProduct}
-        onSubmit={handleFormSubmit}
-      />
-
-      <div className="category-form-container">
-      <CategoryForm
-        initialCategory={editingCategory}
-        onSubmit={() => {
-          setEditingCategory(null);
-          loadCategories();
-          loadProducts();
-        }}
-        />
-
-      <CategoryList
-        categories={categories}
-        onDelete={handleDeleteCategory}
-        onEdit={category => setEditingCategory(category)}
-      />
-      </div>
-    </div>
+      <h1>Admin-Bereich</h1>
+        <div className="admin-forms">
+          <ProductForm
+            initialProduct={editingProduct}
+            onSubmit={handleFormSubmit}
+          />
+          <div className='category-form-container'>
+            <CategoryForm
+              initialCategory={editingCategory}
+              onSubmit={handleFormSubmit}
+            />
+            <CategoryList
+              categories={categories}
+              onDelete={handleDeleteCategory}
+              onEdit={category => setEditingCategory(category)}
+          />
+          </div>
+        </div>
       <ProductList
         products={products}
+        categories={categories}
         onDelete={handleDeleteProduct}
         onEdit={handleEditClick}
       />

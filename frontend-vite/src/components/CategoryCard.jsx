@@ -1,3 +1,5 @@
+/*hier werden die CategoryCard Komponenten definiert,
+die die Kategorie "Kategorien" darstellt und Optionen zum Bearbeiten und Löschen bietet.*/
 import '../styles/components/CategoryCard.css';
 
 export default function CategoryCard({ category, onDelete, onEdit }) {
@@ -7,7 +9,8 @@ export default function CategoryCard({ category, onDelete, onEdit }) {
 
         <div className="card-actions">
             {typeof onEdit === 'function' && (
-            <button
+            <button /* hier wird die Editierfunktion definiert, die aufgerufen wird, wenn der Bearbeiten-Button geklickt wird
+                     die Funktion onEdit wird mit der Kategorie als Argument aufgerufen */
                 className="edit-button"
                 onClick={() => onEdit(category)}
             >
