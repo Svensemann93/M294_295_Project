@@ -11,3 +11,10 @@
 .no-products {
   font-style: italic;
 }
+
+.category-filters button.active
+{
+  background: #0000;
+  color: black;
+  border-color:black;
+}

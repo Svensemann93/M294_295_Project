@@ -1,19 +1,34 @@
-/* hier wird die Navigationliste definiert */
-
 import '../styles/components/Navigation.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
 export default function Navigation() {
   return (
     <nav className="navigation">
       <ul className="nav-list">
         <li>
-          <Link to="/">Shop</Link>
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
+          >
+            Shop
+          </NavLink>
         </li>
         <li>
-          <Link to="/admin">Produkt verwalten</Link>
+          <NavLink
+            to="/admin"
+            className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
+          >
+            Produkt verwalten
+          </NavLink>
         </li>
         <li>
-          <Link to="/contact">Kontakt</Link>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}
+          >
+            Kontakt
+          </NavLink>
         </li>
       </ul>
     </nav>

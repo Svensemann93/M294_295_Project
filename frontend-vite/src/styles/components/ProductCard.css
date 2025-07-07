@@ -1,10 +1,33 @@
+/* Wrapper für alle Produkt-Cards */
+.product-list {
+  /* für einzelne Cards untereinander */
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* zentriert die Cards horizontal */
+  gap: 1rem;             /* Abstand zwischen mehreren Cards */
+}
+
+/* Wenn du später mehrere Cards nebeneinander willst: */
+/* einfach die Klasse "grid" hinzufügen */
+.product-list.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-content: center;  /* zentriert das Grid, wenn es schmaler ist */
+  gap: 1rem;
+}
+
+/* deine bestehende Card-Definition, erweitert um Max-Breite */
 .product-card {
+  width: 100%;
+  max-width: 500px;       /* verhindert zu breite Cards */
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
 }
+
+/* bestehende Styles beibehalten */
 .category-name {
   font-style: italic;
   color: #666;
