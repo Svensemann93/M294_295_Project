@@ -3,8 +3,7 @@ import '../styles/components/ProductCard.css';
 export default function ProductCard({ product, onDelete, onEdit }) {
   return (
     <div className="product-card">
-      {/* Body spannt sich auf die volle Resthoehe */}
-      <div className="product-card__body">
+      <div className="product-card_body">
         <p className="category-name">{product.category.name}</p>
         <h2>{product.name}</h2>
         <p>{product.description}</p>
@@ -17,7 +16,7 @@ export default function ProductCard({ product, onDelete, onEdit }) {
       </div>
 
       {/* Actions werden mit margin-top: auto ans Kartenende geschoben */}
-      <div className="product-card__actions">
+      <div className="product-card_actions">
         {typeof onEdit === 'function' && (
           <button
             className="edit-button"
@@ -31,7 +30,7 @@ export default function ProductCard({ product, onDelete, onEdit }) {
             className="delete-button"
             onClick={() => onDelete(product.id)}
           >
-            Löschen
+            Löschen
           </button>
         )}
       </div>

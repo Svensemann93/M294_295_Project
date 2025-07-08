@@ -42,14 +42,14 @@
   margin-bottom: 0.5rem;
 }
 
-.product-card__body {
+.product-card_body {
   flex: 1;            /* füllt den verfügbaren Platz zwischen Header und Footer */
   display: flex;
   flex-direction: column;
 }
 
 /* Button-Container ans untere Ende schieben */
-.product-card__actions {
+.product-card_actions {
   margin-top: auto;   /* drückt die Buttons an den unteren Rand */
   display: flex;
   gap: 0.5rem;        /* Abstand zwischen den Buttons */
