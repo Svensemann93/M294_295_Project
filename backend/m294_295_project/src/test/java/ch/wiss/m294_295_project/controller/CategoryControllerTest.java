@@ -70,4 +70,44 @@ class CategoryControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.name").value("Boxhandschuhe"));
     }
+
+    @Test
+    void createCategoryWithEmptyNameReturnsBadRequest() throws Exception {
+        // Testet, ob das Erstellen einer Kategorie mit leerem Namen abgelehnt wird.
+        // Der Name ist ein Pflichtfeld. Fehlt er oder ist er leer, soll der Server "Bad Request" (400) zurückgeben.
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/categories")
+                .contentType("application/json")
+                .content("{\"name\":\"\"}"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void createCategoryWithTooLongNameReturnsBadRequest() throws Exception {
+        // Testet, ob das Erstellen einer Kategorie mit zu langem Namen abgelehnt wird.
+        // Angenommen, der Name darf maximal 50 Zeichen lang sein.
+        String longName = "A".repeat(51); // 51 Zeichen
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/categories")
+                .contentType("application/json")
+                .content("{\"name\":\"" + longName + "\"}"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void updateCategoryWithEmptyNameReturnsBadRequest() throws Exception {
+        // Testet, ob das Aktualisieren einer Kategorie mit leerem Namen abgelehnt wird.
+        // Auch beim Update muss der Name ein Pflichtfeld sein.
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put("/api/categories/1")
+                .contentType("application/json")
+                .content("{\"name\":\"\"}"))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void deleteCategoryReturnsOk() throws Exception {
+        // Testet, ob das Löschen einer Kategorie funktioniert.
+        // Wir erwarten, dass der Server mit "OK" (200) antwortet.
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete("/api/categories/1"))
+            .andExpect(status().isOk());
+    }
+
 }

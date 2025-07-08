@@ -94,4 +94,82 @@ class ProductControllerTest {
             .andExpect(jsonPath("$.price").value(75.00))
             .andExpect(jsonPath("$.rating").value(4.5));
     }
+
+        @Test
+    void createProductWithMissingNameReturnsBadRequest() throws Exception {
+        // In diesem Test wird geprüft, ob das Erstellen eines Produkts ohne Namen nicht erlaubt ist.
+        // Der Name ist ein Pflichtfeld. Fehlt er, soll der Server mit "Bad Request" (400) antworten.
+        String json = """
+            {
+                "description": "Beschreibung",
+                "price": 10.00,
+                "rating": 5,
+                "category": { "id": 1 }
+            }
+        """;
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/products")
+                .contentType(APPLICATION_JSON)
+                .content(json))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void createProductWithNegativePriceReturnsBadRequest() throws Exception {
+        // Hier wird getestet, ob ein Produkt mit negativem Preis abgelehnt wird.
+        // Preise dürfen nicht negativ sein. Der Server soll auch hier "Bad Request" (400) zurückgeben.
+        String json = """
+            {
+                "name": "Testprodukt",
+                "description": "Beschreibung",
+                "price": -5.00,
+                "rating": 5,
+                "category": { "id": 1 }
+            }
+        """;
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/products")
+                .contentType(APPLICATION_JSON)
+                .content(json))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void createProductWithTooLongNameReturnsBadRequest() throws Exception {
+        // Hier testen wir, ob ein Produkt mit zu langem Namen abgelehnt wird.
+        // Der Name darf maximal 100 Zeichen lang sein.
+        // Wenn der Name länger ist, soll der Server mit "Bad Request" (400) antworten.
+        String longName = "A".repeat(101); // 101 Zeichen
+        String json = """
+            {
+                "name": "%s",
+                "description": "Beschreibung",
+                "price": 10.00,
+                "rating": 5,
+                "category": { "id": 1 }
+            }
+        """.formatted(longName);
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/products")
+                .contentType(APPLICATION_JSON)
+                .content(json))
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void createProductWithTooLongDescriptionReturnsBadRequest() throws Exception {
+        // Hier prüfen wir, ob eine zu lange Beschreibung abgelehnt wird.
+        // Angenommen, die Beschreibung darf maximal 2000 Zeichen lang sein.
+        String longDesc = "B".repeat(2001); // 2001 Zeichen
+        String json = """
+            {
+                "name": "Testprodukt",
+                "description": "%s",
+                "price": 10.00,
+                "rating": 5,
+                "category": { "id": 1 }
+            }
+        """.formatted(longDesc);
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/products")
+                .contentType(APPLICATION_JSON)
+                .content(json))
+            .andExpect(status().isBadRequest());
+    }
 }
