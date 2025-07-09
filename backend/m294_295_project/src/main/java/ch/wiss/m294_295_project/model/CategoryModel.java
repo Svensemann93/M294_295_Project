@@ -58,12 +58,20 @@ public class CategoryModel {
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ProductModel> products = new ArrayList<>();
+
+    /*
+    Konstruktor, der eine leere Kategorie erstellt.
+    Dieser Konstruktor wird verwendet, um eine Kategorie zu erstellen, wenn keine spezifischen Attribute angegeben sind.
+    */
     public CategoryModel() {
     }
 
     /*
     Konstruktor, der den Namen der Kategorie als Parameter akzeptiert.
     Dieser Konstruktor wird verwendet, um eine neue Kategorie zu erstellen, wenn nur der Name bekannt ist.
+    Ohne diesen Konstruktor könnte es schwierig sein, eine Kategorie zu erstellen, da wir beim oberen Konstruktor keine Parameter haben.
+    Man müsste dann die Attribute einzeln setzen, was umständlich wäre. Daher ist es sinnvoll, einen Konstruktor zu haben,
+    der den Namen direkt setzt.
     */
     public CategoryModel(String name) {
         this.name = name;
