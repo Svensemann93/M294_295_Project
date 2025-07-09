@@ -42,21 +42,42 @@ public class ProductController {
         return productRepository.findAll();
     }
 
+    /*
+    hier wird eine Get-Methode definiert, die ein Produkt anhand seiner ID abruft. Wenn das Produkt nicht gefunden wird,
+    wird eine Fehlermeldung ausgelöst. @PathVariable wird verwendet, um den Wert der Produkt-ID aus der URL zu extrahieren.
+    */
     @GetMapping("/products/{id}")
     public ProductModel getProductById(@PathVariable Integer id) {
         return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Produkt nicht gefunden mit der ID: " + id));
     }
 
+    /* hier wird eine Post-Methode definiert, die ein neues Produkt erstellt.
+    @PostMapping("/products") bedeutet, dass diese Methode auf POST-Anfragen an die URL /api/products reagiert.
+    @Valid bedeutet, dass die übergebenen Daten den Validierungsregeln entsprechen müssen,
+    die in der ProductModel-Klasse definiert sind.
+    @RequestBody wird verwendet, um die Daten des Produkts aus der Anfrage zu extrahieren.
+    */
     @PostMapping("/products")
     public ProductModel createProduct(@Valid @RequestBody ProductModel product) {
         return productRepository.save(product);
     }
 
+    /* hier wird eine Delete-Methode definiert, die ein Produkt anhand seiner ID löscht.
+    @PathVariable wird verwendet, um den Wert der Produkt-ID aus der URL zu extrahieren. Das heisst,
+    dass die ID des zu löschenden Produkts in der URL angegeben wird.
+    */
     @DeleteMapping("/products/{id}")
     public void deleteProduct(@PathVariable Integer id) {
         productRepository.deleteById(id);
     }
 
+    /* hier wird eine Put-Methode definiert, die ein bestehendes Produkt aktualisiert.
+    @PathVariable wird verwendet, um den Wert der Produkt-ID aus der URL zu extrahieren.
+    @Valid bedeutet, dass die übergebenen Daten den Validierungsregeln entsprechen müssen,
+    die in der ProductModel-Klasse definiert sind.
+    @RequestBody wird verwendet, um die Daten des Produkts aus der Anfrage zu extrahieren.
+    bei RuntimeException wird eine Fehlermeldung ausgelöst, wenn das Produkt nicht gefunden wird.
+    */
     @PutMapping("/products/{id}")
     public ProductModel updateProduct(@PathVariable Integer id, @Valid @RequestBody ProductModel productDetails) {
         ProductModel product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Produkt nicht gefunden: " + id));
