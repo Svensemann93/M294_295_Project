@@ -4,7 +4,9 @@
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box; /* sicherstellen, dass Padding/Borders in die Breite/Höhe einfließen */
 }
+
 .category-name {
   font-style: italic;
   color: #666;
@@ -12,7 +14,14 @@
 
 .category-card h2 {
   font-size: 1.25rem;
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  margin-top: 0.5rem ;
 }
 
+.category-form input,
+.category-form textarea,
+.category-form select {
+  line-height: 1.5;      /* genug Zeilenhöhe für Unterlängen */
+  box-sizing: border-box;/* Padding/Borders werden in Größe mitgerechnet */
+  height: auto;
+}

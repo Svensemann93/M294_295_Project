@@ -154,16 +154,24 @@ Wenn isEdit false ist, bedeutet das, dass wir ein neues Produkt erstellen und di
     die in der Datei ProductForm.css definiert ist. Dadurch können wir das Formular stylen und anpassen.
     Das onSubmit-Attribut wird verwendet, um die handleSubmit-Funktion aufzurufen, welche wir oben definiert haben.
     Dadurch wird das Formular abgeschickt, wenn der Benutzer auf den "Hinzufügen"-Button klickt.
+    - In der Überschrift des Formulars wird angezeigt, ob wir ein Produkt bearbeiten oder ein neues Produkt anlegen.
+    - <select> ist ein Dropdown-Menü, in dem der Benutzer eine Kategorie auswählen kann.
+    - value ist der aktuell ausgewählte Wert des Dropdowns, der auf den Zustand categoryId gesetzt wird.
+    - onChange wird aufgerufen, wenn der Benutzer eine Kategorie auswählt und aktualisiert den Zustand.
+    - e.target.value, 10 bedeutet, dass der Wert als Ganzzahl interpretiert wird.
+    - required bedeutet, dass der Benutzer eine Kategorie auswählen muss, bevor er das Formular abschicken kann
     */
     <form className='product-form' onSubmit={handleSubmit}>
       <h2>{isEdit ? 'Produkt bearbeiten' : 'Neues Produkt anlegen'}</h2>
-
       <label className="category-select">
         <select
         value={categoryId}
         onChange={e => setCategoryId(parseInt(e.target.value, 10))}
         required
         >
+          {/* in diesem Dropdown-Menü werden die Kategorien angezeigt, die wir von der API geladen haben. Das Mapping
+          erstellt für jede Kategorie eine Option. Wenn keine Kategorie ausgewählt ist, wird "Kategorie wählen" angezeigt. */}
+          {}
           <option value="">Kategorie wählen</option>
           {categories.map(category => (
             <option key={category.id} value={category.id}>
@@ -172,7 +180,10 @@ Wenn isEdit false ist, bedeutet das, dass wir ein neues Produkt erstellen und di
           ))}
         </select>
       </label>
-
+{/* 
+Hier werden die Eingabefelder für Name, Beschreibung, Preis und Bewertung angezeigt. Ebenfalls geben wir jedem Eingabefeld
+einen Platzhalter, der dem Benutzer anzeigt, was er eingeben soll und wir definieren was für Eingaben erlaubt sind.
+*/}
       <input
         placeholder="Name"
         value={name}

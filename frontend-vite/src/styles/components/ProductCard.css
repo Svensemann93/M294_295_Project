@@ -1,25 +1,22 @@
-/* Wrapper für alle Produkt-Cards */
-.product-list {
-  /* für einzelne Cards untereinander */
-  display: flex;
-  flex-direction: column;
-  align-items: center;   /* zentriert die Cards horizontal */
-  gap: 1rem;             /* Abstand zwischen mehreren Cards */
-}
+/*
+Diese Datei enthält die Styles für die Produktkarten-Komponente.
+Sie ist so gestaltet, dass sie sowohl für einzelne Karten als auch für eine Liste von Karten funktioniert.
+Die Karten sind responsive und passen sich an verschiedene Bildschirmgrössen an.
+ */
 
-/* Wenn du später mehrere Cards nebeneinander willst: */
-/* einfach die Klasse "grid" hinzufügen */
-.product-list.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  justify-content: center;  /* zentriert das Grid, wenn es schmaler ist */
-  gap: 1rem;
-  align-items: stretch;      /* überschreibt das align-items: center aus .product-list */
-}
-
+/* Styles für die einzelnen Produktkarten
+  - width: 100% sorgt dafür, dass die Karten die volle Breite des Containers einnehmen
+  - max-width: 500px begrenzt die maximale Breite der Karten auf 500px, damit sie nicht zu breit werden
+  - border: 1px solid #ccc gibt den Karten einen leichten Rahmen
+  - border-radius: 8px rundet die Ecken der Karten ab
+  - padding: 1rem gibt den Karten einen Innenabstand von 1rem
+  - display: flex macht die Karten flexibel, damit sie sich an den verfügbaren Platz anpassen
+  - flex-direction: column ordnet die Elemente innerhalb der Karten in einer Spalte an
+  - height: 100% sorgt dafür, dass die Karten die volle Höhe des Containers einnehmen
+*/
 .product-card {
   width: 100%;
-  max-width: 500px;       /* verhindert zu breite Cards */
+  max-width: 500px;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 1rem;
@@ -28,29 +25,79 @@
   height: 100%;
 }
 
+/*
+category-name ist eine Klasse, die für den Name der Kategorie des Produkts verwendet wird.
+  - font-style: italic macht den Text kursiv
+  - color: #666 gibt dem Text eine graue Farbe, um ihn weniger dominant zu machen
+*/
 .category-name {
   font-style: italic;
   color: #666;
 }
 
+/*
+product-card p ist eine Klasse, die für die Beschreibung p-Tag des Produkts verwendet wird.
+  - box-sizing: border-box sorgt dafür, dass Padding und Border in der Breite enthalten sind
+  - margin: 0.5rem 0 gibt dem Text einen Abstand von 0.5rem nach oben und unten
+*/
 .product-card p {
+  box-sizing: border-box;
   margin: 0.5rem 0;
 }
 
+/*
+.product-card h2 ist eine Klasse, die für den Titel h2-Tag des Produkts verwendet wird.
+  - font-size: 1.25rem gibt dem Titel eine Schriftgrösse von 1.25rem
+  - margin-bottom: 0.5rem gibt dem Titel einen Abstand von 0.5rem nach unten
+*/
 .product-card h2 {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
 
+/*
+.product-card_body ist eine Klasse, die für den Hauptinhalt der Produktkarte verwendet wird.
+  - flex: 1 sorgt dafür, dass dieser Bereich den verfügbaren Platz einnimmt (0 lässt es nicht zu, 1 lässt es zu)
+  - display: flex macht es möglich, die Elemente innerhalb des Bereichs flexibel anzuordnen
+  - flex-direction: column ordnet die Elemente in einer Spalte an
+*/
 .product-card_body {
-  flex: 1;            /* füllt den verfügbaren Platz zwischen Header und Footer */
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-/* Button-Container ans untere Ende schieben */
+/*
+.product-card_actions button ist eine Klasse, die für die Buttons in der Aktionsleiste verwendet wird. Die Aktionsleiste ist der
+Bereich am unteren Rand der Produktkarte, wo die Buttons platziert sind.
+  - flex: 1 1 auto lässt die Buttons flexibel wachsen und schrumpfen, aber sie haben eine Mindestbreite
+  - min-width: 0 verhindert, dass die Buttons zu breit werden, wenn sie in einer Zeile angeordnet sind
+*/
+.product-card_actions button {
+  flex:1 1 auto;
+  min-width: 0;
+}
+
+/*
+.product-card_actions ist eine Klasse, die für die Aktionsbuttons am unteren Rand der Produktkarte verwendet wird.
+  - margin-top: auto drückt die Buttons an den unteren Rand der Karte
+  - display: flex macht es möglich, die Buttons flexibel anzuordnen
+  - flex-wrap: wrap erlaubt den Zeilenumbruch bei vielen Buttons
+  - gap: 0.5rem gibt den Buttons einen Abstand von 0.5rem zueinander
+  - width: 100% sorgt dafür, dass die Buttons die volle Breite des Containers einnehmen.
+  */
 .product-card_actions {
-  margin-top: auto;   /* drückt die Buttons an den unteren Rand */
+  margin-top: auto;
   display: flex;
-  gap: 0.5rem;        /* Abstand zwischen den Buttons */
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.product-form input,
+.product-form textarea,
+.product-form select {
+  line-height: 1.5;
+  box-sizing: border-box;
+  height: auto;
 }
