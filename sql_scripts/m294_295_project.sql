@@ -38,37 +38,18 @@ INSERT INTO categories (name) VALUES
   ('Zubehör');
  
 INSERT INTO products (name, description, price, rating, category_id)
-VALUES (
-  'Leone Defender',
-  '16 OZ Boxhandschuhe mit Klettverschluss',
-  160.90,
-  4.3,
-  1 -- verweist auf die ID 1 also in dem Fall die Boxhandschuhe
-);
-
-INSERT INTO products (name, description, price, rating, category_id)
-VALUES (
-  'Venum Gladiator',
-  'Shorts kurz in S, M und L',
-  199.95,
-  4.8,
-  2 -- verweist auf die ID 1 also in dem Fall die Boxhandschuhe
-);
-
-INSERT INTO products (name, description, price, rating, category_id)
-VALUES (
-  'Fightindustry BJJ Rushguard',
-  'in Grössen M, L und XL',
-  95.55,
-  4.7,
-  3 -- verweist auf die ID 1 also in dem Fall die Boxhandschuhe
-);
-
-INSERT INTO products (name, description, price, rating, category_id)
-VALUES (
-  'Gurt weiss',
-  'Baumwolle, 1.50 m',
-  25.50,
-  3.6,
-  4 -- verweist auf die ID 1 also in dem Fall die Boxhandschuhe
-);
+VALUES
+  ('Leone Defender',                '16 OZ Boxhandschuhe mit Klettverschluss',      160.90, 4.3, 1),
+  ('Venum Gladiator',               'Shorts kurz in S, M und L',                   199.95, 4.8, 2),
+  ('Fightindustry BJJ Rushguard',   'in Grössen M, L und XL',                       95.55, 4.7, 3),
+  ('Gurt weiss',                    'Baumwolle, 1.50 m',                            25.50, 3.6, 4),
+  ('Grant Pro Sparring',            '16 OZ Profi Boxhandschuhe mit Gelpolsterung', 175.00, 4.2, 1),
+  ('Twins Special',                 '14 OZ handgefertigte Boxhandschuhe',          220.55, 4.8, 1),
+  ('Cleto Reyes Pro',               '12 OZ Lederhandschuhe für Wettkampf',         255.25, 4.9, 1),
+  ('Fairtex Muay Thai Shorts',      'Boxshorts mit traditionellen Designs',         54.35, 4.5, 2),
+  ('Rival Next Level',              'Leichte Boxshorts mit Mesh-Einsatz',           49.90, 4.1, 2),
+  ('Fighter''s Choice',             'Sportliche Trainingsshorts mit Gummibund',     42.25, 4.0, 2),
+  ('Venum Challenger',              'Langarm-Rushguard aus elastischem Material',   69.75, 4.4, 3),
+  ('Hayabusa Metaru',               'Kurzarm-Rushguard mit Kompressionseffekt',     59.25, 4.6, 3),
+  ('Mouthguard Pro',                'Zahnschutz für MMA und Boxen',                 29.50, 3.9, 4),
+  ('Turnbeutel Gym',                'Leichter Rucksackbeutel mit Kordelzug',        18.45, 3.7, 4);
