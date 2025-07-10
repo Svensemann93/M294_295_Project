@@ -180,7 +180,7 @@ Wenn isEdit false ist, bedeutet das, dass wir ein neues Produkt erstellen und di
           ))}
         </select>
       </label>
-{/* 
+{/*
 Hier werden die Eingabefelder für Name, Beschreibung, Preis und Bewertung angezeigt. Ebenfalls geben wir jedem Eingabefeld
 einen Platzhalter, der dem Benutzer anzeigt, was er eingeben soll und wir definieren was für Eingaben erlaubt sind.
 */}
