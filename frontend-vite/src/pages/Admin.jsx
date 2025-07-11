@@ -19,6 +19,7 @@ export default function Admin() { wird verwendet, um die Komponente als Standard
 Diese Zustände werden verwendet, um die Daten im Admin-Bereich zu verwalten.
 */
 export default function Admin() {
+  // let loading = false
   const [loading, setLoading]   = useState(true);
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -56,7 +57,7 @@ Hier werden die Funktionen zum Laden der Produkte und Kategorien definiert.
       });
   };
 
-/* 
+/*
 useEffect wird verwendet, um die Funktionen loadProducts und loadCategories nur einmal auszuführen,
 wenn die Komponente geladen wird. Das bedeutet, dass die Produkte und Kategorien nur einmal geladen werden,
 wenn die Seite geöffnet wird.
