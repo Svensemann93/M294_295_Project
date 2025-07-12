@@ -1,3 +1,7 @@
+/*
+Hier testen wir die CategoryCard-Komponente, die eine Kategorie anzeigt
+und es ermöglicht, sie zu bearbeiten oder zu löschen.
+*/
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CategoryCard from '../CategoryCard';
@@ -27,7 +31,10 @@ test('zeigt den Kategorienamen an und reagiert auf Bearbeiten/Löschen', async (
 
 
 
-// Optional: Test ohne onEdit/onDelete Props
+/*
+Optional: Test für die Anzeige der Buttons basierend auf den Props. Wir testen, ob die Buttons nur angezeigt werden,
+wenn die entsprechende Methode (onEdit oder onDelete) übergeben wurde.
+*/
 test('zeigt Buttons nur, wenn die Props gesetzt sind', () => {
     const category = { id: 2, name: 'Bekleidung' };
 

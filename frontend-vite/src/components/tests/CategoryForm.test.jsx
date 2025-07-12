@@ -1,3 +1,6 @@
+/*
+Hier testen wir die CategoryForm-Komponente, die ein Formular zum Erstellen oder Bearbeiten von Kategorien darstellt.
+*/
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CategoryForm from '../CategoryForm';
@@ -8,7 +11,7 @@ beforeEach(() => {
         ok: true,
         json: async () => ({ name: 'Neue Kategorie' }),
     });
-    // Mock für window.alert, damit wir prüfen können, ob es aufgerufen wurde
+    // Mock für window.alert, damit wir prüfen können, ob die Alert-Nachricht angezeigt wird
     vi.spyOn(window, 'alert').mockImplementation(() => {});
 });
 

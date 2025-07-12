@@ -8,7 +8,9 @@ import "../styles/components/ProductForm.css";
 /*
 macht aus initialProduct einen boolean Wert, der true ist, wenn initialProduct nicht null ist. Das wird verwendet, um zu unterscheiden,
 ob das Formular zum Bearbeiten eines bestehenden Produkts oder zum Erstellen eines neuen Produkts verwendet wird.
-initialProduct ist das Produkt, das bearbeitet werden soll, oder null, wenn ein neues Produkt erstellt werden soll.
+initialProduct ist das Produkt, das bearbeitet werden soll, oder null, wenn ein neues Produkt erstellt werden soll. onSubmit ist
+eine Funktion, die aufgerufen wird, wenn das Formular abgeschickt wird. Das heisst, wenn der Benutzer auf den "Hinzufügen"-Button
+klickt, wird die onSubmit-Funktion aufgerufen und das Produkt wird an die API gesendet.
 */
 export default function ProductForm({ initialProduct = null, onSubmit }) {
   const isEdit = Boolean(initialProduct);
@@ -17,7 +19,9 @@ export default function ProductForm({ initialProduct = null, onSubmit }) {
 hier definieren wir die Zustände für die Eingabefelder des Formulars.
 Es wird definiert, welche Werte die Eingabefelder haben sollen, wenn das Formular geladen wird.
 Wir haben Platzhalter für Name, Beschreibung, Preis, Bewertung und Kategorie definiert, welche uns anzeigen,
-was der Benutzer eingeben soll. (siehe return)
+was der Benutzer eingeben soll.
+useState ist eine eingebaute Funktion in React, die es uns ermöglicht, den Zustand einer Komponente zu verwalten.
+Der Array bei den Kategoerien ist leer, weil wir die Kategorien später von der API laden werden.
 */
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -116,13 +120,17 @@ Wenn isEdit false ist, verwenden wir die POST-Methode und die URL für die Erste
       : `http://localhost:8080/api/products`;
     const method = isEdit ? "PUT" : "POST";
 
-    /*
-const res macht eine HTTP-Anfrage an die API, um das Produkt zu speichern oder zu aktualisieren.
-await fetch macht eine asynchrone Anfrage an die API und wartet auf die Antwort. Asynchron bedeutet, dass der Code nicht weiter
-ausgeführt wird, bis die Anfrage abgeschlossen ist. Das ist wichtig, damit wir die Antwort der API erhalten,
-bevor wir mit dem nächsten Schritt fortfahren.
-Wenn die Anfrage erfolgreich ist, wird das gespeicherte Produkt zurückgegeben und an die onSubmit-Funktion übergeben.
-Wenn die Anfrage fehlschlägt, wird eine Fehlermeldung in der Konsole ausgegeben.
+/*
+Hier führen wir die API-Anfrage aus, um das Produkt zu speichern oder zu aktualisieren.
+Wir verwenden fetch, um die Anfrage zu senden. Die Methode ist entweder PUT oder POST, je nachdem, ob wir ein Produkt bearbeiten oder
+erstellen. Wir setzen res auf null, um später zu überprüfen, ob die Anfrage erfolgreich war. Das try macht eine Anfrage an die API
+und wartet auf die Antwort. Wenn die Anfrage erfolgreich war, wird die Antwort in der Variable res gespeichert.
+Headers geben an, dass wir JSON-Daten senden und empfangen wollen.
+Body enthält die Daten, die wir an die API senden wollen, in diesem Fall das Produkt, das wir erstellen oder aktualisieren wollen.
+on Submit(saved) wird aufgerufen, wenn das Produkt erfolgreich gespeichert wurde.
+Wenn isEdit false ist, setzen wir die Eingabefelder des Formulars zurück, um ein neues Produkt zu erstellen.
+catch tritt auf, wenn ein Fehler auftritt, z.B. wenn die API nicht erreichbar ist. Es wird eine Fehlermeldung in der Konsole
+ausgegeben und eine Alert-Nachricht angezeigt, die den Benutzer informiert, dass das Speichern fehlgeschagen ist.
 */
     let res = null;
     try {
@@ -147,7 +155,7 @@ Wenn die Anfrage fehlschlägt, wird eine Fehlermeldung in der Konsole ausgegeben
       return;
     }
 
-    /*Hier setzen wir die Eingabefelder des Formulars zurück, wenn das Produkt erfolgreich gespeichert wurde.
+/*Hier setzen wir die Eingabefelder des Formulars zurück, wenn das Produkt erfolgreich gespeichert wurde.
 Wenn isEdit true ist, bedeutet das, dass wir ein Produkt bearbeiten und die Eingabefelder nicht zurücksetzen wollen.
 Wenn isEdit false ist, bedeutet das, dass wir ein neues Produkt erstellen und die Eingabefelder zurücksetzen wollen.
 */

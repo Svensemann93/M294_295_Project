@@ -1,9 +1,15 @@
+/*
+Hier testen wir die ProductForm-Komponente, die ein Formular zum Erstellen oder Bearbeiten von Produkten darstellt.
+*/
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ProductForm from '../ProductForm';
 
 beforeEach(() => {
-    // Mock für fetch, damit keine echten Netzwerk-Requests gemacht werden
+    /* 
+    Mock für fetch, damit keine echten Netzwerk-Requests gemacht werden. Das bedeutet, dass wir die API nicht wirklich ansprechen,
+    sondern nur simulieren, wie die API antworten würde.
+    */
     global.fetch = vi.fn((url) => {
         // Kategorien-Request
         if (url.includes('/api/categories')) {
@@ -15,7 +21,9 @@ beforeEach(() => {
                 ]
             });
         }
-        // Produkt-POST-Request
+        /*
+        Produkt-POST-Request
+        */
         return Promise.resolve({
             ok: true,
             json: async () => ({

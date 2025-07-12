@@ -1,6 +1,8 @@
 /*
 Diese Seite ist nur für den Admin-Bereich, um Produkte zu verwalten.
 Sie ermöglicht das Hinzufügen, Bearbeiten und Löschen von Produkten und Kategorien.
+Weiter ist auch das Fehlerhandling definiert, um dem Benutzer Rückmeldung zu geben,
+wenn etwas schiefgeht.
 */
 import { useEffect, useState } from 'react';
 import '../styles/pages/Admin.css';
@@ -108,10 +110,20 @@ const handleDeleteCategory = id => {
     });
 };
 
+/*
+const handleEditClick wird verwendet, um ein Produkt zum Bearbeiten auszuwählen.
+- Es wird das Produkt, das bearbeitet werden soll, in den Zustand editingProduct gesetzt.
+- Dadurch wird das Produktformular mit den Daten des ausgewählten Produkts gefüllt.
+*/
   const handleEditClick = product => {
     setEditingProduct(product);
   };
-
+/*
+const handleFormSubmit wird verwendet, um das Formular zu verarbeiten, wenn ein Produkt oder eine Kategorie 
+hinzugefügt oder bearbeitet wird. 
+- Es setzt die Zustände editingProduct und editingCategory auf null, um das Formular zurückzusetzen.
+- Dann werden die Funktionen loadProducts und loadCategories aufgerufen, um die Listen der Produkte und Kategorien neu zu laden.
+*/
   const handleFormSubmit = () => {
     setEditingProduct(null);
     setEditingCategory(null);
@@ -121,6 +133,12 @@ const handleDeleteCategory = id => {
 
   if (loading) return <p>Lädt …</p>;
 
+  /*
+  Hier wird die Admin-Komponente gerendert.
+  - Es wird ein Titel "Admin-Bereich" angezeigt.
+  - Es gibt zwei Formulare: eines für Produkte und eines für Kategorien.
+  - Das Produktformular wird mit dem Zustand editingProduct initialisiert.
+  */
   return (
     <div className="admin">
       <h1>Admin-Bereich</h1>

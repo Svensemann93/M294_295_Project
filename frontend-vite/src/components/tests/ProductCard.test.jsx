@@ -1,4 +1,6 @@
-// src/components/__tests__/ProductCard.test.jsx
+/* 
+Hier testen wir die ProductCard-Komponente, die ein Produkt anzeigt und es ermöglicht, es zu bearbeiten oder zu löschen.
+*/
 import { render, screen, fireEvent } from '@testing-library/react';
 import ProductCard from '../ProductCard';
 

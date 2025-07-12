@@ -50,6 +50,8 @@ export default function CategoryForm({ initialCategory = null, onSubmit }) {
         versucht, die Kategorie zu speichern. Falls ein Fehler auftritt, wird eine Fehlerbehandlung
         durchgeführt, die eine Fehlermeldung in der Konsole ausgibt und eine Alert-Box anzeigt.
         Das ist wichtig, um den Benutzer über Netzwerkprobleme zu informieren, ohne dass die Anwendung abstürzt.
+        Die Anfrage an den Server wird beim Fehlerschlagen nicht ausgeführt. Das heisst, dass die Kategorie nicht gespeichert wird,
+        wenn ein Fehler auftritt, z.B. wenn der Server nicht erreichbar ist oder ein Problem mit der Netzwerkverbindung besteht.
         */
         try {
     /*
