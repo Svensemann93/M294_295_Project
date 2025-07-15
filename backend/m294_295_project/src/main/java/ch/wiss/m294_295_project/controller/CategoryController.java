@@ -31,7 +31,7 @@ public class CategoryController {
     */
     @Autowired
     private CategoryRepository categoryRepository;
-
+                                
     /*
     @GetMapping bedeutet, dass diese Methode auf GET-Anfragen an die URL /api/categories reagiert.
     Diese Methode gibt eine Liste aller Kategorien zurück, die im Repository gespeichert sind.
