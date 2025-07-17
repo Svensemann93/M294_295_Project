@@ -1,28 +1,9 @@
-/*
-Formular für die Erstellung und Bearbeitung von Produkten.
-Ermöglicht das Eingeben von Name, Beschreibung, Preis, Bewertung und Kategorie.
-*/
 import { useState, useEffect } from "react";
 import "../styles/components/ProductForm.css";
 
-/*
-macht aus initialProduct einen boolean Wert, der true ist, wenn initialProduct nicht null ist. Das wird verwendet, um zu unterscheiden,
-ob das Formular zum Bearbeiten eines bestehenden Produkts oder zum Erstellen eines neuen Produkts verwendet wird.
-initialProduct ist das Produkt, das bearbeitet werden soll, oder null, wenn ein neues Produkt erstellt werden soll. onSubmit ist
-eine Funktion, die aufgerufen wird, wenn das Formular abgeschickt wird. Das heisst, wenn der Benutzer auf den "Hinzufügen"-Button
-klickt, wird die onSubmit-Funktion aufgerufen und das Produkt wird an die API gesendet.
-*/
 export default function ProductForm({ initialProduct = null, onSubmit }) {
   const isEdit = Boolean(initialProduct);
 
-  /*
-hier definieren wir die Zustände für die Eingabefelder des Formulars.
-Es wird definiert, welche Werte die Eingabefelder haben sollen, wenn das Formular geladen wird.
-Wir haben Platzhalter für Name, Beschreibung, Preis, Bewertung und Kategorie definiert, welche uns anzeigen,
-was der Benutzer eingeben soll.
-useState ist eine eingebaute Funktion in React, die es uns ermöglicht, den Zustand einer Komponente zu verwalten.
-Der Array bei den Kategoerien ist leer, weil wir die Kategorien später von der API laden werden.
-*/
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -30,16 +11,6 @@ Der Array bei den Kategoerien ist leer, weil wir die Kategorien später von der 
   const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
 
-  /*
-hier laden wir die Kategorien von der API, um sie im Dropdown-Menü anzuzeigen.
-Wir verwenden useEffect, um die Kategorien nur einmal zu laden, wenn das Formular geladen wird.
-Die Kategorien werden in einem Array gespeichert, das wir später im Dropdown-Menü verwenden.
-Wir verwenden fetch, um die Kategorien von der API zu laden und speichern sie im Zustand categories. Fetch ist eine eingebaute
-Funktion in JavaScript, die es uns ermöglicht, HTTP-Anfragen zu machen. In diesem Fall machen wir eine GET-Anfrage an die URL
-http://localhost:8080/api/categories, um die Kategorien zu laden. Dies müssen wir machen, weil wir die Kategorien an einer anderen
-Stelle definiert haben und sie nicht im Formular selbst speichern wollen.
-Wenn ein Fehler auftritt, wird eine Fehlermeldung in der Konsole ausgegeben.
-*/
   useEffect(() => {
     fetch("http://localhost:8080/api/categories")
       .then((res) => res.json())
@@ -47,12 +18,6 @@ Wenn ein Fehler auftritt, wird eine Fehlermeldung in der Konsole ausgegeben.
       .catch((err) => console.error("Error loading categories", err));
   }, []);
 
-  /*
-hier setzen wir die Eingabefelder des Formulars auf die Werte des vorhandenen Produkts, wenn das Formular im Bearbeitungsmodus ist.
-Wenn isEdit true ist, setzen wir die Eingabefelder auf die Werte des initialProduct. Wenn isEdit false ist, setzen wir die
-Eingabefelder auf leere Werte.
-Dies wird verwendet, um das Formular im Bearbeitungsmodus mit den Werten des Produkts zu füllen, das bearbeitet werden soll.
-*/
   useEffect(() => {
     if (isEdit) {
       setName(initialProduct.name);
@@ -69,17 +34,9 @@ Dies wird verwendet, um das Formular im Bearbeitungsmodus mit den Werten des Pro
     }
   }, [initialProduct, isEdit]);
 
-  /*
-handleSubmit ist die Funktion, die aufgerufen wird, wenn das Formular abgeschickt wird.
-Sie verhindert das Standardverhalten des Formulars und führt dann die Validierung der Eingabefelder durch.
-Das Standartverhalten des Formulars ist, dass die Seite komplett neu geladen wird, wenn das Formular abgeschickt wird. Wir wollen
-das aber nicht, sondern nur die angepassten Daten neu angezeigt bekommen.
-Wenn die Validierung erfolgreich ist, wird das Produkt an die API gesendet, um es zu speichern oder zu aktualisieren.
-*/
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validierung: Preis darf nicht negativ sein
     const parsedPrice = parseFloat(price);
     if (parsedPrice < 0) {
       alert("Der Preis muss eine positive Zahl sein.");
@@ -91,17 +48,12 @@ Wenn die Validierung erfolgreich ist, wird das Produkt an die API gesendet, um e
       return;
     }
 
-    // Validierung: Rating zwischen 0 und 5
     const parsedRating = parseFloat(rating);
     if (parsedRating < 0 || parsedRating > 5) {
       alert("Die Bewertung muss zwischen 0 und 5 liegen.");
       return;
     }
 
-    /*
-    const payload macht aus den Eingabewerten ein Objekt, das an die API gesendet wird.
-    Es enthält die Werte für Name, Beschreibung, Preis, Bewertung und Kategorie.
-    */
     const payload = {
       name,
       description,
@@ -110,28 +62,11 @@ Wenn die Validierung erfolgreich ist, wird das Produkt an die API gesendet, um e
       category: { id: categoryId },
     };
 
-/*
-Die const url = isEdit ist eine Variable, die die URL für die API-Anfrage speichert.
-Wenn isEdit true ist, verwenden wir die PUT-Methode und die URL des Produkts, das bearbeitet werden soll.
-Wenn isEdit false ist, verwenden wir die POST-Methode und die URL für die Erstellung eines neuen Produkts.
-*/
     const url = isEdit
       ? `http://localhost:8080/api/products/${initialProduct.id}`
       : `http://localhost:8080/api/products`;
     const method = isEdit ? "PUT" : "POST";
 
-/*
-Hier führen wir die API-Anfrage aus, um das Produkt zu speichern oder zu aktualisieren.
-Wir verwenden fetch, um die Anfrage zu senden. Die Methode ist entweder PUT oder POST, je nachdem, ob wir ein Produkt bearbeiten oder
-erstellen. Wir setzen res auf null, um später zu überprüfen, ob die Anfrage erfolgreich war. Das try macht eine Anfrage an die API
-und wartet auf die Antwort. Wenn die Anfrage erfolgreich war, wird die Antwort in der Variable res gespeichert.
-Headers geben an, dass wir JSON-Daten senden und empfangen wollen.
-Body enthält die Daten, die wir an die API senden wollen, in diesem Fall das Produkt, das wir erstellen oder aktualisieren wollen.
-on Submit(saved) wird aufgerufen, wenn das Produkt erfolgreich gespeichert wurde.
-Wenn isEdit false ist, setzen wir die Eingabefelder des Formulars zurück, um ein neues Produkt zu erstellen.
-catch tritt auf, wenn ein Fehler auftritt, z.B. wenn die API nicht erreichbar ist. Es wird eine Fehlermeldung in der Konsole
-ausgegeben und eine Alert-Nachricht angezeigt, die den Benutzer informiert, dass das Speichern fehlgeschagen ist.
-*/
     let res = null;
     try {
       res = await fetch(url, {
@@ -154,27 +89,9 @@ ausgegeben und eine Alert-Nachricht angezeigt, die den Benutzer informiert, dass
       alert("Speichern fehlgeschlagen");
       return;
     }
-
-/*Hier setzen wir die Eingabefelder des Formulars zurück, wenn das Produkt erfolgreich gespeichert wurde.
-Wenn isEdit true ist, bedeutet das, dass wir ein Produkt bearbeiten und die Eingabefelder nicht zurücksetzen wollen.
-Wenn isEdit false ist, bedeutet das, dass wir ein neues Produkt erstellen und die Eingabefelder zurücksetzen wollen.
-*/
   };
 
   return (
-    /*
-    <form> ist das HTML-Element, das das Formular darstellt.
-    Das className-Attribut wird verwendet, um dem Formular eine CSS-Klasse zuzuweisen,
-    die in der Datei ProductForm.css definiert ist. Dadurch können wir das Formular stylen und anpassen.
-    Das onSubmit-Attribut wird verwendet, um die handleSubmit-Funktion aufzurufen, welche wir oben definiert haben.
-    Dadurch wird das Formular abgeschickt, wenn der Benutzer auf den "Hinzufügen"-Button klickt.
-    - In der Überschrift des Formulars wird angezeigt, ob wir ein Produkt bearbeiten oder ein neues Produkt anlegen.
-    - <select> ist ein Dropdown-Menü, in dem der Benutzer eine Kategorie auswählen kann.
-    - value ist der aktuell ausgewählte Wert des Dropdowns, der auf den Zustand categoryId gesetzt wird.
-    - onChange wird aufgerufen, wenn der Benutzer eine Kategorie auswählt und aktualisiert den Zustand.
-    - e.target.value, 10 bedeutet, dass der Wert als Ganzzahl interpretiert wird.
-    - required bedeutet, dass der Benutzer eine Kategorie auswählen muss, bevor er das Formular abschicken kann
-    */
     <form className="product-form" onSubmit={handleSubmit}>
       <h2>{isEdit ? "Produkt bearbeiten" : "Neues Produkt anlegen"}</h2>
       <label className="category-select">
@@ -183,8 +100,6 @@ Wenn isEdit false ist, bedeutet das, dass wir ein neues Produkt erstellen und di
           onChange={(e) => setCategoryId(parseInt(e.target.value, 10))}
           required
         >
-          {/* in diesem Dropdown-Menü werden die Kategorien angezeigt, die wir von der API geladen haben. Das Mapping
-          erstellt für jede Kategorie eine Option. Wenn keine Kategorie ausgewählt ist, wird "Kategorie wählen" angezeigt. */}
           {}
           <option value="">Kategorie wählen</option>
           {categories.map((category) => (
@@ -194,10 +109,6 @@ Wenn isEdit false ist, bedeutet das, dass wir ein neues Produkt erstellen und di
           ))}
         </select>
       </label>
-      {/*
-Hier werden die Eingabefelder für Name, Beschreibung, Preis und Bewertung angezeigt. Ebenfalls geben wir jedem Eingabefeld
-einen Platzhalter, der dem Benutzer anzeigt, was er eingeben soll und wir definieren was für Eingaben erlaubt sind.
-*/}
       <input
         placeholder="Name"
         value={name}

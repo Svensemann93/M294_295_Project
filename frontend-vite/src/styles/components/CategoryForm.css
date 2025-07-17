@@ -46,7 +46,6 @@
     box-sizing: border-box;
 }
 
-/* cursor: pointer macht den Button klickbar */
 .edit-button
 {
     background-color: #dedede;
@@ -57,7 +56,6 @@
     cursor: pointer;
 }
 
-/* cursor: pointer macht den Button klickbar */
 .delete-button
 {
     background-color: #ff4d4d;

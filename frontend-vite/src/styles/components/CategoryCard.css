@@ -4,7 +4,7 @@
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box; /* sicherstellen, dass Padding/Borders in die Breite/Höhe einfließen */
+  box-sizing: border-box;
 }
 
 .category-name {
@@ -21,7 +21,7 @@
 .category-form input,
 .category-form textarea,
 .category-form select {
-  line-height: 1.5;      /* genug Zeilenhöhe für Unterlängen */
-  box-sizing: border-box;/* Padding/Borders werden in Größe mitgerechnet */
+  line-height: 1.5;
+  box-sizing: border-box;
   height: auto;
 }

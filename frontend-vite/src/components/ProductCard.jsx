@@ -1,9 +1,3 @@
-/*
-In dieser Datei wird die Komponente ProductCard definiert, die ein Produkt anzeigt.
-Sie zeigt den Namen, die Beschreibung, den Preis und die Bewertung des Produkts an.
-Außerdem gibt es zwei Schaltflächen zum Bearbeiten und Löschen des Produkts.
-Die Schaltflächen werden nur angezeigt, wenn die entsprechenden Funktionen onEdit und onDelete übergeben werden.
-*/
 import '../styles/components/ProductCard.css';
 
 export default function ProductCard({ product, onDelete, onEdit }) {
@@ -21,7 +15,6 @@ export default function ProductCard({ product, onDelete, onEdit }) {
         </p>
       </div>
 
-      {/* Die Schaltflächen zum Bearbeiten und Löschen des Produkts */}
       <div className="product-card_actions">
         {typeof onEdit === 'function' && (
           <button

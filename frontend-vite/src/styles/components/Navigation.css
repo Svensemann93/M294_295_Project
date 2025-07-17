@@ -1,6 +1,3 @@
-/* hier wird die gesamte Navigation im Kopf gestaltet */
-
-/* hier wird die Navigationsleiste gestaltet */
 .navigation {
     background-color: #000000;
     color: #fff;
@@ -10,7 +7,6 @@
     z-index: 1000;
 }
 
-/* hier wird die Navigationsleiste zentriert */
 .navigation .nav-list {
     display: flex;
     list-style: none;
@@ -20,25 +16,22 @@
     gap: 1rem;
 }
 
-/* hier werden die Navigationselemente gestaltet */
 .navigation .nav-list li .nav-item {
     color: #fff;
     text-decoration: none;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: bold;
-    padding: 0.5rem 1rem; /* Klickfläche wird etwas größer */
+    padding: 0.5rem 1rem;
 }
 
-/* hier wird der Hover-Effekt für die Navigationselemente gestaltet */
 .navigation .nav-list li .nav-item:hover {
     text-decoration: underline;
 }
 
-/* hier wird der aktive Navigationspunkt markiert */
 .navigation .nav-list li .nav-item.active {
     font-weight: bold;
-    text-decoration: underline;         /* Unterstreicht nur den Text und nicht darüber hinaus*/
+    text-decoration: underline;
     text-decoration-color: #fff;
-    text-decoration-thickness: 2px;    /* Linienstärke */
-    text-underline-offset: 3px;        /* Abstand Text ↔ Linie – kleiner = näher */
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
 }

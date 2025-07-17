@@ -1,6 +1,3 @@
-// hier befinden sich nur die Routen meiner Seiten und die Navigation
-// die Seiten selbst sind in den pages Ordnern
-
 import { Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Shop from './pages/Shop';

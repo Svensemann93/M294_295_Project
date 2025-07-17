@@ -32,19 +32,15 @@ class ProductControllerTest {
 
     @BeforeEach
     void setup() {
-        // 1) Controller instanziieren
         ProductController controller = new ProductController();
 
-        // 2) Mock-Repository ins private Feld injizieren
         ReflectionTestUtils.setField(controller, "productRepository", productRepository);
 
-        // 3) MockMvc standalone aufbauen
         mvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test
     void getAllProductsReturnsList() throws Exception {
-        // Arrange: Stube ein Category- und Product-Objekt
         CategoryModel cat = new CategoryModel("Helme");
         cat.setId(1);
         ProductModel prod = new ProductModel("Testhelm", "Beschreibung", BigDecimal.valueOf(99.90), BigDecimal.valueOf(5), cat);
@@ -52,7 +48,6 @@ class ProductControllerTest {
 
         when(productRepository.findAll()).thenReturn(List.of(prod));
 
-        // Act & Assert (hier werden die erwarteten eingegebenen Werte mit den erwarteten Werten verglichen)
         mvc.perform(get("/api/products"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$[0].id").value(42))
@@ -64,14 +59,12 @@ class ProductControllerTest {
 
     @Test
     void updateProductReturnsUpdatedProduct() throws Exception {
-        // Arrange: existierendes Produkt stubben
         CategoryModel cat = new CategoryModel("Helme");
         cat.setId(1);
         ProductModel existing = new ProductModel("Altname", "Alte Beschreibung", BigDecimal.valueOf(50.00), BigDecimal.valueOf(4), cat);
         existing.setId(7);
 
         when(productRepository.findById(7)).thenReturn(Optional.of(existing));
-        // save(...) soll einfach das übergebene Objekt zurückgeben
         when(productRepository.save(any(ProductModel.class))).thenAnswer(inv -> inv.getArgument(0));
 
         String updateJson = """
@@ -84,7 +77,6 @@ class ProductControllerTest {
             }
         """;
 
-        // Act & Assert
         mvc.perform(put("/api/products/7")
                 .contentType(APPLICATION_JSON)
                 .content(updateJson))
@@ -97,8 +89,6 @@ class ProductControllerTest {
 
         @Test
     void createProductWithMissingNameReturnsBadRequest() throws Exception {
-        // In diesem Test wird geprüft, ob das Erstellen eines Produkts ohne Namen nicht erlaubt ist.
-        // Der Name ist ein Pflichtfeld. Fehlt er, soll der Server mit "Bad Request" (400) antworten.
         String json = """
             {
                 "description": "Beschreibung",
@@ -115,8 +105,6 @@ class ProductControllerTest {
 
     @Test
     void createProductWithNegativePriceReturnsBadRequest() throws Exception {
-        // Hier wird getestet, ob ein Produkt mit negativem Preis abgelehnt wird.
-        // Preise dürfen nicht negativ sein. Der Server soll auch hier "Bad Request" (400) zurückgeben.
         String json = """
             {
                 "name": "Testprodukt",
@@ -134,10 +122,7 @@ class ProductControllerTest {
 
     @Test
     void createProductWithTooLongNameReturnsBadRequest() throws Exception {
-        // Hier testen wir, ob ein Produkt mit zu langem Namen abgelehnt wird.
-        // Der Name darf maximal 100 Zeichen lang sein.
-        // Wenn der Name länger ist, soll der Server mit "Bad Request" (400) antworten.
-        String longName = "A".repeat(101); // 101 Zeichen
+        String longName = "A".repeat(101);
         String json = """
             {
                 "name": "%s",
@@ -155,9 +140,7 @@ class ProductControllerTest {
 
     @Test
     void createProductWithTooLongDescriptionReturnsBadRequest() throws Exception {
-        // Hier prüfen wir, ob eine zu lange Beschreibung abgelehnt wird.
-        // Angenommen, die Beschreibung darf maximal 2000 Zeichen lang sein.
-        String longDesc = "B".repeat(2001); // 2001 Zeichen
+        String longDesc = "B".repeat(2001);
         String json = """
             {
                 "name": "Testprodukt",
