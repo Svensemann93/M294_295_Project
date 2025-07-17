@@ -1,0 +1,29 @@
+/* hier wird die Produktliste gestaltet */
+
+/*
+product-grid ist eine Klasse, die für das Raster der Produktkarten verwendet wird.
+  - display: grid macht es möglich, die Karten in einem Raster anzuordnen
+  - grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) sorgt dafür, dass die Karten in Spalten angeordnet werden,
+    wobei jede Spalte mindestens 300px breit ist und sich an den verfügbaren Platz anpasst. 1fr steht für "1 Fractional Unit",
+    was bedeutet, dass der verfügbare Platz gleichmässig auf die Spalten verteilt wird.
+  - gap: 1rem gibt den Karten einen Abstand von 1rem zueinander
+  - margin-top: 1rem gibt dem Raster einen Abstand von 1rem nach oben
+*/
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.loading,
+.no-products {
+  font-style: italic;
+}
+
+.category-filters button.active
+{
+  background: #0000;
+  color: black;
+  border-color:black;
+}

@@ -1,0 +1,22 @@
+/* hier ist das Styling für die Seite Contact
+ */
+
+.contact h1 {
+    color: black;
+}
+
+.contact h2 {
+    color: black;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact p {
+    color: black;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.contact img {
+    margin-top: 1rem;
+}

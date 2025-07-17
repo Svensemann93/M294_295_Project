@@ -1,0 +1,47 @@
+.product-form
+{
+    display: grid;
+    gap: 0.75rem;
+    width: 600px;
+    margin-bottom: 2rem;
+}
+
+.product-form input,
+.product-form textarea
+{
+    padding: 0.5rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.product-form button
+{
+    background-color: #dedede;
+    color: black;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.product-form button:hover
+{
+    background-color: #d1d1d1;
+}
+
+.category-select
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.category-select select
+{
+    padding: 0.5rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}

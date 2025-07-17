@@ -1,0 +1,35 @@
+.admin
+{
+    padding: 1rem;
+}
+
+.admin h1
+{
+    color: black;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+.admin h2
+{
+    color: black;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.admin-forms
+{
+    display: flex;
+    align-items: flex-start;
+    gap: 5rem;
+
+}
+
+.edit-button:hover
+{
+    background-color: #d1d1d1;
+}
+
+.delete-button:hover
+{
+    background-color: #db0000;
+}

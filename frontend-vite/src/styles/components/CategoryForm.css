@@ -1,0 +1,69 @@
+.category-form
+{
+    display: grid;
+    gap: 0.75rem;
+    max-width: 400px;
+    margin-bottom: 2rem;
+}
+
+.category-form input,
+.category-form textarea
+{
+    padding: 0.5rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.category-form button
+{
+    background-color: #dedede;
+    color: black;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.category-form button:hover
+{
+    background-color: #d1d1d1;
+}
+
+.category-select
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.category-select select
+{
+    padding: 0.5rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* cursor: pointer macht den Button klickbar */
+.edit-button
+{
+    background-color: #dedede;
+    color: black;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* cursor: pointer macht den Button klickbar */
+.delete-button
+{
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
