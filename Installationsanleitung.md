@@ -7,12 +7,34 @@ Diese Anleitung beschreibt, wie du das Onlineshopverwaltungs-Projekt aus dem Git
 ## Voraussetzungen
  
 - **Java 21**
-- **Maven 4.0**
-- **Node.js** (wird mit npm install installiert)
-- **npm** (wird mit npm install installiert)
+- **Maven 3.9.10**
+- **Node.js**
+- **npm** (wird mit Node.js installiert)
 - **Git** (Github Account)
 - **IDE** (am besten VSCode oder Codium)
 - **MySQL Workbench**
+ 
+Um Java, Maven, Node.js und Git zu installieren, empfiehlt es sich, den Chocolatey Package Manager zu nutzen.
+ 
+Weitere Details findest du unter: https://chocolatey.org/
+ 
+Nach der Installation über Chocolatey, kannst du mit folgenden Befehlen im Windows Terminal (cmd) prüfen, ob die Software und die korrekten Versionen davon installiert sind:
+ 
+```bash
+java --version
+```
+```bash
+mvn -v
+```
+```bash
+node -v
+```
+```bash
+npm -v
+```
+```bash
+git --version
+```
  
 ---
  
@@ -22,9 +44,9 @@ Diese Anleitung beschreibt, wie du das Onlineshopverwaltungs-Projekt aus dem Git
  
 ```bash
 git clone <REPO-URL>
-cd 294_295_Project
+cd OnlineshopProject
 ```
-- **Alternativ kann auch das Repo direkt über VSCode oder Codium geklont werden. Was in der Praxis einfacher ist**
+- **Alternativ kannst du das Repo auch direkt über die IDE klonen. Das ist gerade bei der Verwendung von VSCode oder Codium deutlich einfacher.**
  
 ---
  

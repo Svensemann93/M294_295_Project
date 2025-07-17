@@ -16,7 +16,7 @@ CREATE TABLE categories (
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    description TEXT,
+    description TEXT NOT NULL, 
     price DECIMAL(10,2) NOT NULL,
     CHECK (price >=0.00 AND MOD(price *100, 5) =0), -- price *100 wandelt 0.05 in 5 Rappen um und MOD stellt sicher, dass es nur in 5 Rappen Schritten nach oben geht.
     rating DECIMAL(2,1),
