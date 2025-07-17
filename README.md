@@ -46,7 +46,7 @@ git --version
 Öffne ein Terminal und führe folgenden Befehl aus:
  
 ```bash
-git clone <REPO-URL>
+git clone https://github.com/Svensemann93/M294_295_Project.git
 cd OnlineshopProject
 ```
 - **Alternativ kannst du das Repo auch direkt über die IDE klonen. Das ist gerade bei der Verwendung von VSCode oder Codium deutlich einfacher.**
